@@ -1,10 +1,4 @@
 import type { Client } from "@notionhq/client";
-import type {
-  APIErrorCode,
-  APIResponseError,
-  DatabaseObjectResponse,
-  PageObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
 
 import type { ResolvedRoot } from "./root.js";
 
@@ -33,18 +27,30 @@ export type RootCapabilityVerification = VerificationResult & {
   test_page_id?: string;
 };
 
-function isApiResponseError(error: unknown): error is APIResponseError {
+type NotionApiError = {
+  code?: string;
+  message?: string;
+};
+
+type DatabaseObjectResponse = {
+  properties?: Record<string, { type: string }>;
+};
+
+type PageObjectResponse = {
+  id: string;
+};
+
+function isApiResponseError(error: unknown): error is NotionApiError {
   return (
     typeof error === "object" &&
     error !== null &&
-    "code" in error &&
-    typeof (error as APIResponseError).code === "string"
+    "code" in error
   );
 }
 
 function mapNotionError(error: unknown): string {
   if (isApiResponseError(error)) {
-    const code = error.code as APIErrorCode | string;
+    const code = error.code;
     if (code === "restricted_resource") {
       return "Access restricted. Share the page or database with the integration in Notion and try again.";
     }
@@ -88,7 +94,7 @@ function buildCheck(
 
 export async function verifyToken(client: Client): Promise<TokenVerification> {
   try {
-    const user = await client.users.me();
+    const user = await client.users.me({});
     const check = buildCheck("token", "ok", "Token verified.");
 
     return {

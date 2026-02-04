@@ -1,8 +1,4 @@
 import type { Client } from "@notionhq/client";
-import type {
-  PageObjectResponse,
-  DatabaseObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
 
 import { normalizeNotionId } from "./ids.js";
 
@@ -21,6 +17,25 @@ export type ResolvedRoot =
       data_source_ids: string[];
     };
 
+type PageProperty = {
+  type: string;
+  title?: { plain_text: string }[];
+};
+
+type PageObjectResponse = {
+  id: string;
+  url?: string;
+  properties?: Record<string, PageProperty>;
+};
+
+type DatabaseObjectResponse = {
+  id: string;
+  url?: string;
+  title?: { plain_text: string }[];
+  data_sources?: { id: string }[];
+  properties?: Record<string, { type: string }>;
+};
+
 function extractTitleFromDatabase(database: DatabaseObjectResponse): string {
   const title = database.title?.map((entry) => entry.plain_text).join("") ?? "";
   return title.trim().length > 0 ? title : "Untitled";
@@ -34,7 +49,8 @@ function extractTitleFromPage(page: PageObjectResponse): string {
     return "Untitled";
   }
 
-  const title = titleProperty.title.map((entry) => entry.plain_text).join("");
+  const title =
+    titleProperty.title?.map((entry) => entry.plain_text).join("") ?? "";
   return title.trim().length > 0 ? title : "Untitled";
 }
 
