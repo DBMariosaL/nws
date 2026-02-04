@@ -27,9 +27,22 @@ export const workspaceRootSchema = z.discriminatedUnion("type", [
 ]);
 
 export type WorkspaceRootState = z.infer<typeof workspaceRootSchema>;
-export type WorkspaceRootInput = Omit<WorkspaceRootState, "updated_at"> & {
-  updated_at?: string;
-};
+export type WorkspaceRootInput =
+  | {
+      type: "page";
+      page_id: string;
+      title?: string;
+      url?: string;
+      updated_at?: string;
+    }
+  | {
+      type: "database";
+      database_id: string;
+      data_source_id: string;
+      title?: string;
+      url?: string;
+      updated_at?: string;
+    };
 
 function isMissingFile(error: unknown): boolean {
   return (
