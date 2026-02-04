@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import { initWorkflow } from "../../workflow/init.js";
+import { logResult } from "../../utils/logging.js";
 
 export function registerInitCommand(program: Command): void {
   program
@@ -7,16 +8,24 @@ export function registerInitCommand(program: Command): void {
     .description("Initialize the workspace flow")
     .action(async (_options, command) => {
       try {
-        const result = await initWorkflow(command.optsWithGlobals());
+        const options = command.optsWithGlobals() as { json?: boolean };
+        const result = await initWorkflow(options);
         if (result.status !== "ok") {
-          console.error(result.message);
+          logResult(result, options);
           process.exitCode = 1;
           return;
         }
-        console.log(result.message);
+        logResult(result, options);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.error(message);
+        logResult(
+          {
+            command: "init",
+            status: "error",
+            message,
+          },
+          command.optsWithGlobals() as { json?: boolean }
+        );
         process.exitCode = 1;
       }
     });
