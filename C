@@ -1,0 +1,99 @@
+---
+phase: 01-cli-&-workflow-shell
+verified: 2026-02-04T12:30:00Z
+status: human_needed
+score: 8/8 must-haves verified
+human_verification:
+  - test: "Build and run workflow commands"
+    expected: "`npm run build` succeeds and `node bin/cli.js init --yes`, `plan --yes`, `apply --yes --json`, `handover --yes` exit 0 with output."
+    why_human: "Requires executing the CLI in a real shell to confirm runtime behavior."
+  - test: "Install packs locally and globally"
+    expected: "`node bin/cli.js pack install --target opencode --scope local --force` and `--scope global` write files to documented locations; same for `--target claude`."
+    why_human: "Requires filesystem writes in the user environment to validate install destinations."
+---
+
+# Phase 1: CLI & Workflow Shell Verification Report
+
+**Phase Goal:** Users can install and run the workspace workflow from their preferred CLI environment.
+**Verified:** 2026-02-04T12:30:00Z
+**Status:** human_needed
+**Re-verification:** No — initial verification
+
+## Goal Achievement
+
+### Observable Truths
+
+| # | Truth | Status | Evidence |
+| --- | --- | --- | --- |
+| 1 | User can run `nws init`, `nws plan`, `nws apply`, and `nws handover` successfully. | ✓ VERIFIED | Command registrations in `src/cli/index.ts` and handlers in `src/cli/commands/*.ts` call workflow stubs that return ok results. |
+| 2 | CLI runs in non-interactive/headless mode when `--yes` is provided. | ✓ VERIFIED | `src/cli/commands/apply.ts` bypasses prompts when `options.yes` is true and blocks headless without it. |
+| 3 | CLI exposes a single `nws` binary via npm bin mapping. | ✓ VERIFIED | `package.json` maps `nws` to `bin/cli.js`; `src/cli.ts` is the build entry wrapper. |
+| 4 | Command pack format and install locations are documented with source links. | ✓ VERIFIED | `01-DISCOVERY.md` includes OpenCode and Claude Code sources and install paths. |
+| 5 | Local vs global install behavior is explicitly defined for both OpenCode and Claude Code packs. | ✓ VERIFIED | Install matrix in `01-DISCOVERY.md` lists local/global paths for both tools. |
+| 6 | User can install OpenCode command pack locally or globally. | ✓ VERIFIED | `src/cli/commands/pack.ts` wires `installPack` and OpenCode pack manifest exists in `packs/opencode/pack.md`. |
+| 7 | User can install Claude Code command pack locally or globally. | ✓ VERIFIED | `src/cli/commands/pack.ts` wires `installPack` and Claude pack manifest exists in `packs/claude-code/pack.md`. |
+| 8 | Pack installation uses the discovered official install locations. | ✓ VERIFIED | `src/cli/packs/install.ts` resolves OpenCode via XDG config or `~/.opencode` and Claude via `.claude/skills` or `~/.claude/skills`, matching `01-DISCOVERY.md`. |
+
+**Score:** 8/8 truths verified
+
+### Required Artifacts
+
+| Artifact | Expected | Status | Details |
+| --- | --- | --- | --- |
+| `package.json` | npm bin entry for `nws` and scripts | ✓ VERIFIED | Contains `"bin": { "nws": "bin/cli.js" }` and build scripts. |
+| `src/cli/index.ts` | CLI entrypoint wiring to subcommands | ✓ VERIFIED | Registers init/plan/apply/handover/pack with Commander. |
+| `src/workflow/init.ts` | init workflow stub | ✓ VERIFIED | Exports `initWorkflow` returning structured result. |
+| `src/workflow/plan.ts` | plan workflow stub | ✓ VERIFIED | Exports `planWorkflow` returning structured result. |
+| `src/workflow/apply.ts` | apply workflow stub | ✓ VERIFIED | Exports `applyWorkflow` returning structured result. |
+| `src/workflow/handover.ts` | handover workflow stub | ✓ VERIFIED | Exports `handoverWorkflow` returning structured result. |
+| `.planning/phases/01-cli-&-workflow-shell/01-DISCOVERY.md` | pack spec summary with sources | ✓ VERIFIED | Contains OpenCode and Claude Code sections with URLs and install matrix. |
+| `src/cli/commands/pack.ts` | CLI command to install packs | ✓ VERIFIED | Implements `nws pack install` with target/scope options. |
+| `src/cli/packs/install.ts` | pack install helper | ✓ VERIFIED | Resolves paths and writes pack files using env-paths and home dirs. |
+| `packs/opencode/pack.md` | OpenCode command pack definition | ✓ VERIFIED | JSON frontmatter with four workflow commands. |
+| `packs/claude-code/pack.md` | Claude Code command pack definition | ✓ VERIFIED | JSON frontmatter with four skills and YAML frontmatter per command. |
+
+### Key Link Verification
+
+| From | To | Via | Status | Details |
+| --- | --- | --- | --- | --- |
+| `package.json` | `bin/cli.js` | bin mapping | ✓ VERIFIED | `"nws": "bin/cli.js"` present. |
+| `src/cli/commands/apply.ts` | `src/workflow/apply.ts` | command handler call | ✓ VERIFIED | `applyWorkflow(options)` invoked. |
+| `src/cli/commands/pack.ts` | `src/cli/packs/install.ts` | install helper call | ✓ VERIFIED | `installPack({ target, scope, force })` invoked. |
+| `src/cli/packs/install.ts` | `env-paths` | install destination resolution | ✓ VERIFIED | Uses `envPaths("opencode").config` for XDG config. |
+
+### Requirements Coverage
+
+| Requirement | Status | Blocking Issue |
+| --- | --- | --- |
+| CLI-01 | ✓ SATISFIED | - |
+| CLI-02 | ✓ SATISFIED | - |
+| CLI-03 | ✓ SATISFIED | - |
+
+### Anti-Patterns Found
+
+| File | Line | Pattern | Severity | Impact |
+| --- | --- | --- | --- | --- |
+| - | - | - | - | No anti-patterns detected in phase files. |
+
+### Human Verification Required
+
+1. Build and run workflow commands
+
+**Test:** Run `npm run build` then `node bin/cli.js init --yes`, `node bin/cli.js plan --yes`, `node bin/cli.js apply --yes --json`, `node bin/cli.js handover --yes`.
+**Expected:** Each command exits 0 and prints a completion message (apply emits JSON when `--json`).
+**Why human:** Requires executing the CLI in a real shell to confirm runtime behavior.
+
+2. Install packs locally and globally
+
+**Test:** Run `node bin/cli.js pack install --target opencode --scope local --force`, `--scope global`, and repeat for `--target claude`.
+**Expected:** Pack files are written to the documented local/global locations and reported in output.
+**Why human:** Requires filesystem writes in the user environment to validate install destinations.
+
+### Gaps Summary
+
+No structural gaps found. Runtime behavior still needs human validation.
+
+---
+
+_Verified: 2026-02-04T12:30:00Z_
+_Verifier: Claude (gsd-verifier)_
