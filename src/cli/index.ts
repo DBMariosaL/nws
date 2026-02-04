@@ -3,6 +3,7 @@ import { Command } from "commander";
 import { registerApplyCommand } from "./commands/apply.js";
 import { registerHandoverCommand } from "./commands/handover.js";
 import { registerInitCommand } from "./commands/init.js";
+import { registerPackCommand } from "./commands/pack.js";
 import { registerPlanCommand } from "./commands/plan.js";
 
 const program = new Command();
@@ -17,5 +18,6 @@ registerInitCommand(program);
 registerPlanCommand(program);
 registerApplyCommand(program);
 registerHandoverCommand(program);
+registerPackCommand(program);
 
 program.parseAsync(process.argv);
