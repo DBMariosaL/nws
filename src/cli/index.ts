@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+import { Command } from "commander";
+import { registerApplyCommand } from "./commands/apply.js";
+import { registerHandoverCommand } from "./commands/handover.js";
+import { registerInitCommand } from "./commands/init.js";
+import { registerPlanCommand } from "./commands/plan.js";
+
+const program = new Command();
+
+program
+  .name("nws")
+  .description("Notion workspace shell CLI")
+  .option("-y, --yes", "Assume yes for all prompts");
+
+registerInitCommand(program);
+registerPlanCommand(program);
+registerApplyCommand(program);
+registerHandoverCommand(program);
+
+program.parseAsync(process.argv);
