@@ -15,10 +15,12 @@
     "node": ">=24"
   },
   "dependencies": {
+    "@notionhq/client": "^5.9.0",
     "commander": "^14.0.0",
     "env-paths": "^4.0.0",
     "pino": "^10.0.0",
     "prompts": "^2.4.0",
+    "write-file-atomic": "^7.0.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {
