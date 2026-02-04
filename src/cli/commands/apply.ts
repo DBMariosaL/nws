@@ -1,4 +1,6 @@
 import { Command } from "commander";
+import prompts from "prompts";
+import { logResult } from "../../utils/logging.js";
 import { applyWorkflow } from "../../workflow/apply.js";
 
 export function registerApplyCommand(program: Command): void {
@@ -7,16 +9,63 @@ export function registerApplyCommand(program: Command): void {
     .description("Apply the planned workspace changes")
     .action(async (_options, command) => {
       try {
-        const result = await applyWorkflow(command.optsWithGlobals());
+        const options = command.optsWithGlobals() as {
+          yes?: boolean;
+          json?: boolean;
+        };
+
+        if (!options.yes) {
+          if (!process.stdout.isTTY) {
+            logResult(
+              {
+                command: "apply",
+                status: "error",
+                message: "Non-interactive mode detected. Re-run with --yes to apply.",
+              },
+              options
+            );
+            process.exitCode = 1;
+            return;
+          }
+
+          const response = await prompts({
+            type: "confirm",
+            name: "proceed",
+            message: "Apply changes?",
+            initial: false,
+          });
+
+          if (!response.proceed) {
+            logResult(
+              {
+                command: "apply",
+                status: "error",
+                message: "Apply cancelled.",
+              },
+              options
+            );
+            process.exitCode = 1;
+            return;
+          }
+        }
+
+        const result = await applyWorkflow(options);
         if (result.status !== "ok") {
-          console.error(result.message);
+          logResult(result, options);
           process.exitCode = 1;
           return;
         }
-        console.log(result.message);
+        logResult(result, options);
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
-        console.error(message);
+        logResult(
+          {
+            command: "apply",
+            status: "error",
+            message,
+          },
+          command.optsWithGlobals() as { json?: boolean }
+        );
         process.exitCode = 1;
       }
     });

@@ -10,7 +10,8 @@ const program = new Command();
 program
   .name("nws")
   .description("Notion workspace shell CLI")
-  .option("-y, --yes", "Assume yes for all prompts");
+  .option("-y, --yes", "Assume yes for all prompts")
+  .option("--json", "Output result as JSON");
 
 registerInitCommand(program);
 registerPlanCommand(program);
