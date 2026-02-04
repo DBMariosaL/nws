@@ -12,8 +12,8 @@ This roadmap delivers a safe, repeatable CLI workflow that turns client document
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: CLI & Workflow Shell** - Users can install and run the workflow commands.
-- [ ] **Phase 2: Access & Scope** - Users can configure Notion access and select the workspace parent.
+- [x] **Phase 1: CLI & Workflow Shell** - Users can install and run the workflow commands.
+- [x] **Phase 2: Access & Scope** - Users can configure Notion access and select the workspace parent.
 - [ ] **Phase 3: Ingestion & Analysis** - Users can ingest documents and get structured analysis.
 - [ ] **Phase 4: Workspace Design & Planning** - Users can review a proposed architecture and atomic execution plan.
 - [ ] **Phase 5: Safe Apply & Idempotence** - Users can preview, apply, and rerun safely without duplication.
@@ -32,9 +32,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold CLI shell and workflow command stubs
-- [ ] 01-02-PLAN.md — Discover OpenCode and Claude Code pack specs
-- [ ] 01-03-PLAN.md — Implement pack assets and installer command
+- [x] 01-01-PLAN.md — Scaffold CLI shell and workflow command stubs
+- [x] 01-02-PLAN.md — Discover OpenCode and Claude Code pack specs
+- [x] 01-03-PLAN.md — Implement pack assets and installer command
 
 ### Phase 2: Access & Scope
 **Goal**: Users can configure Notion access and confirm the target workspace root.
@@ -44,10 +44,12 @@ Plans:
   1. User can configure a Notion integration token and verify access.
   2. User can select a root page or data source as the workspace parent.
   3. User can validate integration capabilities and shared scope before apply.
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [x] 02-01-PLAN.md — Persist access config and root state storage
+- [x] 02-02-PLAN.md — Implement Notion access verification and root resolution helpers
+- [x] 02-03-PLAN.md — Wire init prompts and verification flow
 
 ### Phase 3: Ingestion & Analysis
 **Goal**: Users can turn client files into structured, critique-ready context.
@@ -108,8 +110,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. CLI & Workflow Shell | 0/3 | Not started | - |
-| 2. Access & Scope | 0/TBD | Not started | - |
+| 1. CLI & Workflow Shell | 3/3 | Complete | 2026-02-04 |
+| 2. Access & Scope | 3/3 | Complete | 2026-02-04 |
 | 3. Ingestion & Analysis | 0/TBD | Not started | - |
 | 4. Workspace Design & Planning | 0/TBD | Not started | - |
 | 5. Safe Apply & Idempotence | 0/TBD | Not started | - |

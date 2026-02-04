@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Access
 
-- [ ] **ACC-01**: User can configure a Notion integration token and verify access.
-- [ ] **ACC-02**: User can select a root page or data source as the workspace parent.
-- [ ] **ACC-03**: User can validate integration capabilities and shared scope before apply.
+- [x] **ACC-01**: User can configure a Notion integration token and verify access.
+- [x] **ACC-02**: User can select a root page or data source as the workspace parent.
+- [x] **ACC-03**: User can validate integration capabilities and shared scope before apply.
 
 ### Notion Objects
 
@@ -42,9 +42,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### CLI & Installation
 
-- [ ] **CLI-01**: User can install command packs for OpenCode and Claude Code (local/global).
-- [ ] **CLI-02**: User can run the workflow commands (/nws:init → /nws:handover).
-- [ ] **CLI-03**: User can run a headless CLI for automation outside agentic CLIs.
+- [x] **CLI-01**: User can install command packs for OpenCode and Claude Code (local/global).
+- [x] **CLI-02**: User can run the workflow commands (/nws:init → /nws:handover).
+- [x] **CLI-03**: User can run a headless CLI for automation outside agentic CLIs.
 
 ## v2 Requirements
 
@@ -74,9 +74,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ACC-01 | Phase 2 | Pending |
-| ACC-02 | Phase 2 | Pending |
-| ACC-03 | Phase 2 | Pending |
+| ACC-01 | Phase 2 | Complete |
+| ACC-02 | Phase 2 | Complete |
+| ACC-03 | Phase 2 | Complete |
 | NOTN-01 | Phase 5 | Pending |
 | NOTN-02 | Phase 5 | Pending |
 | SAFE-01 | Phase 5 | Pending |
@@ -89,9 +89,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DES-02 | Phase 4 | Pending |
 | REP-01 | Phase 6 | Pending |
 | REP-02 | Phase 6 | Pending |
-| CLI-01 | Phase 1 | Pending |
-| CLI-02 | Phase 1 | Pending |
-| CLI-03 | Phase 1 | Pending |
+| CLI-01 | Phase 1 | Complete |
+| CLI-02 | Phase 1 | Complete |
+| CLI-03 | Phase 1 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total
@@ -100,4 +100,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-04*
-*Last updated: 2026-02-04 after initial definition*
+*Last updated: 2026-02-04 after Phase 2 completion*
