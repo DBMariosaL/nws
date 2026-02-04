@@ -29,10 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. User can install OpenCode and Claude Code command packs locally or globally.
   2. User can run the workflow commands (/nws:init → /nws:handover).
   3. User can run a headless CLI for automation outside agentic CLIs.
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
+- [ ] 01-01-PLAN.md — Scaffold CLI shell and workflow command stubs
+- [ ] 01-02-PLAN.md — Discover OpenCode and Claude Code pack specs
+- [ ] 01-03-PLAN.md — Implement pack assets and installer command
 
 ### Phase 2: Access & Scope
 **Goal**: Users can configure Notion access and confirm the target workspace root.
@@ -106,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. CLI & Workflow Shell | 0/TBD | Not started | - |
+| 1. CLI & Workflow Shell | 0/3 | Not started | - |
 | 2. Access & Scope | 0/TBD | Not started | - |
 | 3. Ingestion & Analysis | 0/TBD | Not started | - |
 | 4. Workspace Design & Planning | 0/TBD | Not started | - |
