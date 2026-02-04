@@ -60,3 +60,17 @@
 - **Metadata:** OpenCode does not document required frontmatter; Claude Code documents YAML frontmatter fields for skill behavior.
 - **Invocation:** OpenCode commands are referenced by `user:`/`project:` IDs; Claude Code uses `/slash` commands (optionally namespaced for plugins).
 - **Scopes:** OpenCode distinguishes user vs project commands by install path; Claude Code distinguishes personal vs project skills and adds plugin/enterprise scopes.
+
+## Install Matrix
+
+| Tool | Local (project) | Global (user) | Required parent directories |
+| --- | --- | --- | --- |
+| OpenCode | `<PROJECT DIR>/.opencode/commands/` | `$XDG_CONFIG_HOME/opencode/commands/` (or `$HOME/.opencode/commands/`) | `<PROJECT DIR>/.opencode/` or `$XDG_CONFIG_HOME/opencode/` |
+| Claude Code | `.claude/skills/<skill-name>/SKILL.md` | `~/.claude/skills/<skill-name>/SKILL.md` | `.claude/skills/` or `~/.claude/skills/` |
+
+### Example Install Commands
+
+- **OpenCode (global/user):**
+  - `mkdir -p ~/.config/opencode/commands && cp ./packs/opencode/*.md ~/.config/opencode/commands/`
+- **Claude Code (local/project):**
+  - `mkdir -p .claude/skills/nws-init && cp ./packs/claude/nws-init/SKILL.md .claude/skills/nws-init/`
