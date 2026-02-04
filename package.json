@@ -1,0 +1,28 @@
+{
+  "name": "gsd-notion-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "nws": "bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "start": "node bin/cli.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "env-paths": "^4.0.0",
+    "pino": "^10.0.0",
+    "prompts": "^2.4.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
